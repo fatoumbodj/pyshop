@@ -4,11 +4,6 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
     stages {
-        stage('Récupérer le code') {
-            steps {
-                git branch: env.main, url: 'https://github.com/fatoumbodj/pyshop.git'
-            }
-        }
         stage('Installer les dépendances') {
             steps {
                 sh 'pip install -r requirements.txt' // pour les projets Python
