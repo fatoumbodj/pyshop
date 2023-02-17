@@ -54,5 +54,4 @@ pipeline {
                 Veuillez consulter les journaux de la pipeline pour plus d'informations."""
         }
         
-   }
 }
