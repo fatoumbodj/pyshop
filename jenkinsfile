@@ -30,7 +30,7 @@ pipeline {
                 sh 'docker build -t my-image .'
             }
         }
-        stage('Déployer sur le serveur d\'intégration ou les serveurs de production') {
+        stage('Déployer sur le serveur d'intégration ou les serveurs de production') {
             when {
                 branch 'dev'
             }
