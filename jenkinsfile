@@ -1,55 +1,15 @@
 pipeline {
-    agent any
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10'))
+  agent any
+  stages {
+    stage('Récupérer le code') {
+      steps {
+        git branch: 'main', url: 'https://github.com/fatoumbodj/pyshop.git
+      }
     }
-    stages {
-        stage('Récupérer le code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/fatoumbodj/pyshop.git'
-            }
-        }
-        stage('Installer les dépendances') {
-            steps {
-                sh 'pip install -r requirements.txt' // pour les projets Python
-            }
-        }
-        stage('Tests unitaires') {
-            steps {
-                sh 'pytest' // pour les projets Python avec pytest
-                sh 'nosetests' // pour les projets Python avec nose
-            }
-        }
-        stage('Tests de sécurité avec sonar') {
-            steps {
-                sh 'sonar-scanner' // pour les projets Python avec SonarQube
-            }
-        }
-        stage('Construire l\'image Docker') {
-            steps {
-                sh 'docker build -t my-image .'
-            }
-        }
-        stage('Déploiement') {
-            when {
-                branch 'dev'
-            }
-            steps {
-                sh 'ansible-playbook deploy-dev.yml' // pour le déploiement sur le serveur d'intégration
-            }
-            when {
-                branch 'master'
-            }
-            steps {
-                sh 'ansible-playbook deploy-prod.yml' // pour le déploiement sur les serveurs de production
-            }
-        }
+    stage('Afficher un message') {
+      steps {
+        echo 'Le code a été récupéré avec succès !'
+      }
     }
-    post {
-        failure {
-            emailext subject: "Échec de la pipeline ${env.JOB_NAME} sur la branche ${env.BRANCH_NAME}",
-                body: """La pipeline ${env.JOB_NAME} a échoué sur la branche ${env.BRANCH_NAME}.
-                Veuillez consulter les journaux de la pipeline pour plus d'informations."""
-        }
-    }
+  }
 }
