@@ -34,7 +34,3 @@ pipeline {
                 sh 'docker build -t pyshop'
             }
         }
-        
-                            
-       }
-       
