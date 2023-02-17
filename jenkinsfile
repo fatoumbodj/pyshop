@@ -68,8 +68,6 @@ pipeline {
         }
     }
 }
-//Ce script pipeline utilise Jenkins pour automatiser le processus de déploiement, en utilisant différents outils pour chaque étape : Git pour récupérer le code, Maven ou un outil d'installation pour installer les dépendances, Jest ou JUnit pour les tests unitaires, SonarQube pour les tests de sécurité, Docker pour la construction de l'image, Docker-compose ou Ansible pour le déploiement selon la branche. En cas d'erreur, un email est envoyé aux développeurs pour les informer. Notez que ce script est un exemple et qu'il faudra probablement l'adapter en fonction de votre environnement et de vos besoins.
-
 
 
 
