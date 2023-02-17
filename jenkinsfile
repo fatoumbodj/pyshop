@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Récupérer le code') {
       steps {
-        git branch: 'main', url: 'https://github.com/fatoumbodj/pyshop.git
+        git branch: 'main', url: 'https://github.com/fatoumbodj/pyshop.git'
       }
     }
     stage('Afficher un message') {
