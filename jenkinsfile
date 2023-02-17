@@ -4,6 +4,11 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
     stages {
+        stage('Récupérer le code') {
+            steps {
+                git branch: env.main, url: 'https://github.com/fatoumbodj/pyshop.git'
+            }
+        }
         stage('Installer les dépendances') {
             steps {
                 sh 'pip install -r requirements.txt' // pour les projets Python
@@ -25,7 +30,20 @@ pipeline {
                 sh 'docker build -t my-image .'
             }
         }
-        
+        stage('Déploiement') {
+            when {
+                branch 'dev'
+            }
+            steps {
+                sh 'ansible-playbook deploy-dev.yml' // pour le déploiement sur le serveur d'intégration
+            }
+            when {
+                branch 'master'
+            }
+            steps {
+                sh 'ansible-playbook deploy-prod.yml' // pour le déploiement sur les serveurs de production
+            }
+        }
     }
     post {
         failure {
