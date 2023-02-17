@@ -46,7 +46,7 @@ pipeline {
                 sh 'ansible-playbook deploy-prod.yml' // pour le déploiement sur les serveurs de production
             }
         }
-    }
+ 
     post {
         failure {
             emailext subject: "Échec de la pipeline ${env.JOB_NAME} sur la branche ${env.BRANCH_NAME}",
@@ -56,4 +56,4 @@ pipeline {
         
 }
 }
-}
+
