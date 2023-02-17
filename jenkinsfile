@@ -6,8 +6,6 @@ pipeline {
         git branch: 'main', url: 'https://github.com/fatoumbodj/pyshop.git'
       }
     }
-    
-  }
    post {
         failure {
             emailext subject: "Échec de la pipeline ${env.JOB_NAME} sur la branche ${env.BRANCH_NAME}",
