@@ -8,10 +8,6 @@ pipeline {
             }
         }
 
-        stage('Installer les dépendances avec Maven') {
-            steps {
-                sh 'mvn install'
-            }
-        }
+       
     }
 }
