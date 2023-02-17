@@ -32,6 +32,27 @@ pipeline {
                 sh 'docker build -t my-image .'
             }
         }
+         stage('Déploiement') {
+            when {
+                branch 'dev'
+            }
+            steps {
+                sh 'ansible-playbook deploy-dev.yml' // pour le déploiement sur le serveur d'intégration
+            }
+            when {
+                branch 'master'
+            }
+            steps {
+                sh 'ansible-playbook deploy-prod.yml' // pour le déploiement sur les serveurs de production
+            }
+        }
+    }
+    post {
+        failure {
+            emailext subject: "Échec de la pipeline ${env.JOB_NAME} sur la branche ${env.BRANCH_NAME}",
+                body: """La pipeline ${env.JOB_NAME} a échoué sur la branche ${env.BRANCH_NAME}.
+                Veuillez consulter les journaux de la pipeline pour plus d'informations."""
+        }
         
    }
 }
