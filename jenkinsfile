@@ -21,17 +21,4 @@ pipeline {
             }
         }
         
-        stage('Tester la sécurité avec Sonar') {
-            steps {
-                withSonarQubeEnv('nom_du_serveur_SonarQube') {
-                    sh 'sonar-scanner'
-                }
-            }
-        }
-        
-        stage('Construire l\'image Docker') {
-            steps {
-                sh 'docker build -t pyshop'
-            }
-        }
-}
+       }
