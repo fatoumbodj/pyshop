@@ -1,24 +1,17 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Récupérer le code') {
             steps {
-                git branch: 'main', url: 'https://github.com/fatoumbodj/pyshop.git'
+                git branch: 'nom-de-la-branche', url: 'https://github.com/username/repository.git'
             }
         }
-        
-        stage('Installer les dépendances') {
+
+        stage('Installer les dépendances avec Maven') {
             steps {
-                sh 'npm'
-               
+                sh 'mvn install'
             }
         }
-        
-        stage('Tester les unitaires') {
-            steps {
-                sh 'junit'
-            }
-        }
-        
     }
+}
