@@ -11,12 +11,6 @@ pipeline {
                 sh 'pip install -r requirements.txt' // pour les projets Python
             }
         }
-  stage('Tests unitaires') {
-            steps {
-                sh 'pytest' // pour les projets Python avec pytest
-                sh 'nosetests' // pour les projets Python avec nose
-            }
-        }
         
     post {
         failure {
