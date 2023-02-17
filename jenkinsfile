@@ -33,11 +33,5 @@ pipeline {
             }
         }
         
-    post {
-        failure {
-            emailext subject: "Échec de la pipeline ${env.JOB_NAME} sur la branche ${env.BRANCH_NAME}",
-                body: """La pipeline ${env.JOB_NAME} a échoué sur la branche ${env.BRANCH_NAME}.
-                Veuillez consulter les journaux de la pipeline pour plus d'informations."""
-        }
-  }
+   
 }
