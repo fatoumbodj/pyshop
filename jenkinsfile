@@ -40,7 +40,7 @@ pipeline {
                 sh 'ansible-playbook deploy-dev.yml' // pour le déploiement sur le serveur d'intégration
             }
             when {
-                branch 'master'
+                branch 'main'
             }
             steps {
                 sh 'ansible-playbook deploy-prod.yml' // pour le déploiement sur les serveurs de production
