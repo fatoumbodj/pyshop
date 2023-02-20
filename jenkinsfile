@@ -6,11 +6,7 @@ pipeline {
         git branch: 'main', url: 'https://github.com/fatoumbodj/pyshop.git'
       }
     }
-    stage('Afficher un message') {
-      steps {
-        echo 'Le code a été récupéré avec succès !'
-      }
-    }
+
         stage('Install dependencies') {
             steps {
                 // installe les dépendances avec Pipenv
