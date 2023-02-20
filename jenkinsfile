@@ -11,12 +11,6 @@ pipeline {
         echo 'Le code a été récupéré avec succès !'
       }
     }
-        stage('Checkout') {
-            steps {
-                // récupère le code du dépôt Github
-                checkout scm
-            }
-        }
         stage('Install dependencies') {
             steps {
                 // installe les dépendances avec Pipenv
