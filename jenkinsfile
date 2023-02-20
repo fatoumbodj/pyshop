@@ -30,11 +30,7 @@ pipeline {
                 sh 'docker build -t my-image .'
             }
         }
-        post {
-        failure {
-            emailext body: "The build failed. Please check the console output: ${BUILD_URL}", subject: "Build failed for ${JOB_NAME}", to: "developers@example.com"
-        }
-    }
+        
 }
 }
 
