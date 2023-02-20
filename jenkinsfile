@@ -32,18 +32,20 @@ pipeline {
         }
         
         stage('Deploy') {
-            environment {
-                SERVER_IP = 'xxx.xxx.xxx.xxx' // Adresse IP du serveur de déploiement
-                SERVER_USER = 'user' // Nom d'utilisateur pour se connecter au serveur
-                SERVER_PASSWORD = credentials('server_password') // Mot de passe pour se connecter au serveur stocké dans Jenkins credentials
-            }
-            steps {
-                sshagent(['server_password']) {
-                    sh "ssh ${SERVER_USER}@${SERVER_IP} 'sudo systemctl stop app.service'" // Arrêter le service sur le serveur de déploiement
-                    sh "scp target/myapp.jar ${SERVER_USER}@${SERVER_IP}:~/myapp.jar" // Copier le fichier JAR sur le serveur de déploiement
-                    sh "ssh ${SERVER_USER}@${SERVER_IP} 'sudo systemctl start app.service'" // Démarrer le service sur le serveur de déploiement
+            when {
+                expression {
+                    env.GIT_BRANCH == 'master'
                 }
             }
+            steps {
+                sh 'ansible-playbook deploy.yml -i inventory/prod' // replace with your Ansible playbook and inventory file
+            }
+        }
+    }
+
+    post {
+        failure {
+            mail to: 'developers@entreprise.com', subject: 'Build failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]', body: "Build failed for branch ${env.GIT_BRANCH}. Please check Jenkins console output for more details."
         }
     }
 }
