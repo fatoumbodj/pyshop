@@ -34,7 +34,7 @@ pipeline {
         stage('Deploy') {
             when {
                 expression {
-                    env.GIT_BRANCH == 'master'
+                    env.GIT_BRANCH == 'main'
                 }
             }
             steps {
@@ -45,7 +45,7 @@ pipeline {
 
     post {
         failure {
-            mail to: 'developers@entreprise.com', subject: 'Build failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]', body: "Build failed for branch ${env.GIT_BRANCH}. Please check Jenkins console output for more details."
+            mail to: 'mbodjfaticha99@gmail.com', subject: 'Build failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]', body: "Build failed for branch ${env.GIT_BRANCH}. Please check Jenkins console output for more details."
         }
     }
 }
