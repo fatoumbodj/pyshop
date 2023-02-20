@@ -11,22 +11,26 @@ pipeline {
         echo 'Le code a été récupéré avec succès !'
       }
     }
-    stage('Installer les dépendances') {
+        stage('Checkout') {
             steps {
-                sh 'pip install -r requirements.txt' // pour les projets Python
+                // récupère le code du dépôt Github
+                checkout scm
             }
         }
-        stage('Tests unitaires') {
+        stage('Install dependencies') {
             steps {
-                sh 'pytest' // pour les projets Python avec pytest
-                sh 'nosetests' // pour les projets Python avec nose
+                // installe les dépendances avec Pipenv
+                sh 'pipenv install --dev'
             }
         }
-        stage('Tests de sécurité avec sonar') {
+        stage('Unit tests') {
             steps {
-                sh 'sonar-scanner' // pour les projets Python avec SonarQube
+                // exécute les tests unitaires
+                sh 'pipenv run pytest'
             }
         }
+        // ajouter d'autres stages pour les tests de sécurité, la construction d'image Docker, etc.
+    
         stage('Construire l\'image Docker') {
             steps {
                 sh 'docker build -t my-image .'
